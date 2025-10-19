@@ -1,8 +1,8 @@
-# Evidence-Based +EV NFL Betting: DraftKings-First (Las Vegas Constraints)
+# Evidence-Based +EV NFL Betting: DraftKings & FanDuel-First (Las Vegas Constraints)
 
 ## Executive Summary
 - **Core edge**: Price. Consistently beat the closing line (positive CLV) via fast info, accurate priors, and aggressive line shopping.
-- **Primary sportsbook**: DraftKings. Execute bets on DraftKings where legal; in Nevada, use DraftKings as your price benchmark and execute at local books when you can match or improve DK price.
+- **Primary sportsbooks**: DraftKings & FanDuel. Execute on DK/FD where legal; in Nevada, use DK/FD as price benchmarks and execute at local books when you can match or improve their prices. FanDuel operates retail only at Fremont (no NV mobile).
 - **Risk control**: Small unit sizes and fractional Kelly to survive variance and avoid ruin.
 - **Target markets**: Efficient on sides/totals; more opportunity in props/derivatives and select teasers (only with fair pricing).
 - **Vegas logistics**: In-person app signup, geofencing, cage cash handling; register at multiple operators to shop lines.
@@ -14,9 +14,14 @@
 - When you are physically in Las Vegas (NV), use DraftKings as your primary price reference and attempt to replicate or beat the DK price at local sportsbooks (retail or NV mobile apps). If you need to execute on DraftKings, you must be physically located within a DraftKings-legal state’s geofence.
 - Official legal states (DraftKings): https://sportsbook.draftkings.com/help/sports-betting/where-is-sports-betting-legal
 
+## FanDuel Availability & Workflow
+- As of Oct 2025, FanDuel Sportsbook is not live with a mobile app in Nevada. FanDuel operates a retail sportsbook at the Fremont Hotel & Casino in Las Vegas. When you are in a FanDuel-legal state, make FanDuel a co-primary book for execution, pricing, CLV tracking, and promos/features.
+- When you are physically in Las Vegas (NV), use FanDuel as a price reference alongside DraftKings. Execute locally at NV books when you can match or improve the DK/FD benchmark; optional in-person wagering at FanDuel (Fremont) is available. To execute on the FanDuel app, you must be physically located within a FanDuel-legal state.
+- Official legal states (FanDuel): https://www.fanduel.com/legal-sports-betting-us-map
+
 ## Setup & Nevada Logistics
 - **In-person registration**: Required for NV apps. Bring ID to the sportsbook counter/cage.  
-  - DraftKings Sportsbook is not live in Nevada as of Oct 2025; for on-the-ground execution in Las Vegas, register at local operators: Circa Sports NV, Westgate SuperBook NV, Caesars/William Hill NV, BetMGM NV, STN Sports (Station), South Point, Boyd Sports.
+  - DraftKings and FanDuel mobile sportsbooks are not live in Nevada as of Oct 2025; for on-the-ground execution in Las Vegas, register at local operators: Circa Sports NV, Westgate SuperBook NV, Caesars/William Hill NV, BetMGM NV, STN Sports (Station), South Point, Boyd Sports. FanDuel retail is available at Fremont.
 - **Deposits/withdrawals**: Cash at casino cage; some apps add remote options after signup. Apps are geofenced to NV.
 - **Line shopping**: Maintain accounts at several books. Small price improvements compound EV.
 
@@ -44,7 +49,7 @@ Reference: The Logic of Sports Betting (Miller & Davidow).
 
 ## Price Edge & Closing Line Value (CLV)
 - **CLV definition**: Your bet price vs the market’s final (closing) price. Positive CLV predicts skill and future profitability.
-- **Practice**: Use DraftKings as your primary book and price benchmark where legal. In Nevada, shop Circa, Westgate, Caesars/WH, BetMGM, STN, South Point, Boyd and compare against the DK price—execute locally only when the local price matches or improves your DK benchmark.
+- **Practice**: Use DraftKings and FanDuel as your primary books and price benchmarks where legal. In Nevada, shop Circa, Westgate, Caesars/WH, BetMGM, STN, South Point, Boyd and compare against the DK/FD prices—execute locally only when the local price matches or improves your DK/FD benchmark.
 - **Reduced juice**: Prefer -108/-105 vs -110 when possible; lowers the hold you must overcome.
 - **Tracking**: Log your bet price and the close; aim to beat the close consistently.
 
@@ -117,15 +122,15 @@ Studies on efficiency:
 ---
 
 ## Step-By-Step Vegas Playbook
-1. DraftKings-first: Create and fund a DraftKings Sportsbook account in a DK-legal state (see DK legal states page). When in Las Vegas, also create/fund local NV apps (Circa, Westgate, Caesars/WH, BetMGM, STN, South Point, Boyd) for on-the-ground execution.  
+1. DraftKings/FanDuel-first: Create and fund DraftKings and FanDuel accounts in their legal states (see DK/FD legal states pages). When in Las Vegas, also create/fund local NV apps (Circa, Westgate, Caesars/WH, BetMGM, STN, South Point, Boyd) for on-the-ground execution; optional retail FanDuel at Fremont.  
 2. Define bankroll and unit size; choose fractional Kelly for strongest edges.  
-3. Build an odds screen with DraftKings as your primary price. When in NV, replicate or improve the DK price at local books before executing.  
-4. Early week: Only bet openers with clear model/info edge; prefer DK execution when geolocated in a DK state; otherwise execute locally in NV at equal/better price.  
-5. Mid-week: React to injury reports; prioritize props/derivatives where books lag. Use DK where legal; in NV, mirror DK value locally.  
-6. Gameday −90 min: Move fast on inactives; hit stale props/totals/sides before market catches up (prefer DK if in a DK state, otherwise NV local books).  
-7. Teasers: Only classic Wong legs crossing 3 & 7 and only at fair pricing (near −120 and favorable push rules). Shop DK and NV locals; skip if modern pricing removes edge.  
-8. Live: Limit to breaks; accept small limits; avoid chasing suspended/steaming markets. Prefer DK live when within a DK-legal state; otherwise use NV locals.  
-9. Track CLV for every bet; aim to beat the close consistently (use DK close as your primary benchmark when available).  
+3. Build an odds screen with DK/FD as your primary prices. When in NV, replicate or improve the DK/FD price at local books before executing.  
+4. Early week: Only bet openers with clear model/info edge; prefer DK/FD execution when geolocated in a DK/FD state; otherwise execute locally in NV at equal/better price.  
+5. Mid-week: React to injury reports; prioritize props/derivatives where books lag. Use DK/FD where legal; in NV, mirror DK/FD value locally.  
+6. Gameday −90 min: Move fast on inactives; hit stale props/totals/sides before market catches up (prefer DK/FD if in a DK/FD state, otherwise NV local books).  
+7. Teasers: Only classic Wong legs crossing 3 & 7 and only at fair pricing (near −120 and favorable push rules). Shop DK/FD and NV locals; skip if modern pricing removes edge.  
+8. Live: Limit to breaks; accept small limits; avoid chasing suspended/steaming markets. Prefer DK/FD live when within a DK/FD-legal state; otherwise use NV locals.  
+9. Track CLV for every bet; aim to beat the close consistently (use DK/FD close as your primary benchmark when available).  
 10. Record deposits/withdrawals, stakes, prices, CLV deltas, results for audit/tax and process improvement.  
 11. Weekly review: Reallocate toward markets where your CLV is positive; trim what you can’t beat.
 
@@ -156,6 +161,7 @@ EV = p*(d - 1) - (1 - p)
   - Pinnacle (live middling): https://www.pinnacle.com/betting-resources/en/educational/mastering-live-betting-the-art-of-middling
 - **Nevada**  
   - DraftKings legal states: https://sportsbook.draftkings.com/help/sports-betting/where-is-sports-betting-legal  
+  - FanDuel legal states: https://www.fanduel.com/legal-sports-betting-us-map  
   - LegalSportsReport NV: https://www.legalsportsreport.com/sports-betting-states/nevada/  
   - PlayNevada apps: https://www.playnevada.com/sports-betting-apps/  
   - William Hill NV FAQ: https://www.williamhill.us/faq-new-account/  

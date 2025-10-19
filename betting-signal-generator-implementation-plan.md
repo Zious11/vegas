@@ -1,6 +1,6 @@
-# DK‑First NFL Betting Signal Generator — Implementation Plan
+# DK & FanDuel‑First NFL Betting Signal Generator — Implementation Plan
 
-This plan turns the method in `nfl-betting-method-draftkings-first-las-vegas.md` into a practical, DK‑first signal system that emits manual bet signals (no auto‑betting).
+This plan turns the method in `nfl-betting-method-draftkings-first-las-vegas.md` into a practical, DK & FanDuel‑first signal system that emits manual bet signals (no auto‑betting).
 
 ## 1) Objectives and Scope
 - **Primary goal**: Generate actionable signals with price, EV, fractional Kelly sizing, and expiry, so you can place bets manually.
@@ -8,7 +8,7 @@ This plan turns the method in `nfl-betting-method-draftkings-first-las-vegas.md`
 - **Non‑goals**: Auto‑betting, evading geofence/limits, or guaranteeing profits.
 
 ## 2) System Overview
-- **Inputs**: DraftKings odds (primary benchmark), Vegas locals (Circa, Westgate, Caesars/WH, BetMGM, STN, South Point, Boyd) via API or manual CSV.
+- **Inputs**: DraftKings & FanDuel odds (primary benchmarks), Vegas locals (Circa, Westgate, Caesars/WH, BetMGM, STN, South Point, Boyd) via API or manual CSV.
 - **Core Engine**: Normalizes odds, computes implied probability, EV, fractional Kelly, identifies Wong‑eligible teasers, and filters by thresholds.
 - **Outputs**: Signals as CSV/JSONL, Slack alerts (optional), and persistence in SQLite for audit/CLV.
 - **Schedules**: Openers, mid‑week, T−90 (inactives), and pre‑close snapshot for CLV.
@@ -24,7 +24,7 @@ flowchart LR
 ```
 
 ## 3) Data Sources
-- **DraftKings (primary)**: Use a reputable odds aggregator (e.g., TheOddsAPI, SportsDataIO). Configure via env var key. No scraping.
+- **DraftKings & FanDuel (primary benchmarks)**: Use a reputable odds aggregator (e.g., TheOddsAPI, SportsDataIO) that includes DK and FD lines. Configure via env var key. No scraping.
 - **Locals (NV)**: Prefer aggregator coverage. MVP fallback: manual CSV exports placed in `data/locals_csv/` with columns:
   - `event_id,date,book,market,selection,price,points,total`
 - **Event IDs**: Normalize home/away and kickoff timestamps to create stable `event_id` keys (e.g., `NFL2025-WK8-NE@BUF`).
@@ -34,10 +34,11 @@ flowchart LR
 ## 4) Configuration (YAML)
 ```yaml
 books:
-  primary: draftkings
+  primary_benchmarks: [draftkings, fanduel]
   locals: [circa, westgate, caesars_wh, mgm, stn, south_point, boyd]
 odds_providers:
   dk: {type: aggregator, name: the_odds_api, api_key: ${ODDS_API_KEY}}
+  fd: {type: aggregator, name: the_odds_api, api_key: ${ODDS_API_KEY}}
   locals: {type: aggregator, name: the_odds_api}
   locals_csv_dir: data/locals_csv/
 thresholds:
@@ -48,6 +49,7 @@ thresholds:
 teasers:
   price_by_book:
     draftkings: -120
+    fanduel: -120
     circa: -120
     westgate: -130
   require_cross_3_and_7: true
@@ -57,7 +59,7 @@ risk:
   unit_size_pct: 0.0075   # 0.75% of bankroll per standard wager
   kelly_fraction: 0.25     # 25% Kelly on strongest edges
 closing_line:
-  benchmark_order: [dk, circa, composite]
+  benchmark_order: [dk, fd, circa, composite]
   composite_books: [betmgm, caesars_wh, fanduel, pointsbet]
 alerts:
   slack_webhook: ${SLACK_WEBHOOK_URL}
@@ -78,10 +80,10 @@ scheduling:
 - **Kelly fraction (decimal)**: `b = d − 1; k = (b*p − (1 − p))/b`; clamp to `[0, k_max]`; apply fractional Kelly.
 
 ## 6) Signal Rules
-- **Price Discrepancy (DK vs Local)**
-  - If a local price improves DK by ≥ `dk_vs_local_min_cents` or improves a key number (e.g., −2.5 vs −3), signal.
+- **Price Discrepancy (DK/FD vs Local)**
+  - If a local price improves DK or FD by ≥ `dk_vs_local_min_cents` or improves a key number (e.g., −2.5 vs −3), signal.
 - **Model Edge (Fair vs Price)**
-  - If `EV ≥ min_ev` (sides/totals) or `EV ≥ props_min_ev` (props), signal. DK is preferred execution; in NV, execute locally if price ≥ DK.
+  - If `EV ≥ min_ev` (sides/totals) or `EV ≥ props_min_ev` (props), signal. DK/FD are preferred execution where legal; in NV, execute locally if price ≥ DK/FD.
 - **Wong Teasers**
   - Two‑team 6‑pt; each leg crosses 3 and 7; require a valid teaser price. Only emit when the per-book teaser price exists and is ≤ `thresholds.teaser_price_max` (or equal/better than `teasers.price_by_book[book]` when specified). Prefer lower totals (e.g., < 49).
 - **Props/Derivatives**
@@ -99,15 +101,15 @@ scheduling:
 - Files: `signals/YYYY‑MM‑DD_signals.jsonl` and `.csv` with stable IDs.
 - SQLite tables:
   - `odds_snapshots(event_id, book, market, selection, price, ts)`
-  - `signals(id, event_id, market, selection, dk_price, local_best_book, local_best_price, fair_prob, ev, kelly_fraction, suggested_units, valid_until, ts)`
+  - `signals(id, event_id, market, selection, dk_price, fd_price, local_best_book, local_best_price, fair_prob, ev, kelly_fraction, suggested_units, valid_until, ts)`
   - `executions(signal_id, stake_units, book, price, ts)`
-  - `closing_lines(event_id, market, selection, dk_close, local_close_book, local_close_price, ts)`
+  - `closing_lines(event_id, market, selection, dk_close, fd_close, local_close_book, local_close_price, ts)`
 - Slack alert payload (example):
 ```json
 {
   "title": "Signal: BUF -2.5 (-105)",
   "event": "NE@BUF",
-  "benchmark": "DK -110",
+  "benchmarks": {"dk": -110, "fd": -108},
   "best_local": {"book": "Circa", "price": -105},
   "ev": 0.015,
   "kelly_fraction": 0.06,
@@ -117,7 +119,7 @@ scheduling:
 ```
 
 ## 9) CLV Tracking
-- For each signal, record the close using `closing_line.benchmark_order` (e.g., DK → Circa → composite). Store `close_price` and `close_source`. If no official close is available, use the last pre‑kick snapshot with source noted.
+- For each signal, record the close using `closing_line.benchmark_order` (e.g., DK → FD → Circa → composite). Store `close_price` and `close_source`. If no official close is available, use the last pre‑kick snapshot with source noted.
 - Weekly report: distribution of CLV deltas and realized ROI to validate process.
 
 ## 10) Risk & Thresholds
@@ -179,7 +181,7 @@ signals_engine/
 - Weekly CLV report shows that signals, on average, beat the close.
 
 - Teaser signals only emitted when a valid per-book teaser price is present and acceptable by config.
-- Each CLV record includes `close_price` and `close_source` (dk|circa|composite); proxy order honored.
+- Each CLV record includes `close_price` and `close_source` (dk|fd|circa|composite); proxy order honored.
 - Locals CSV snapshot present for each scheduled run where API coverage is absent.
 
 ## 17) Validation & Revisions
